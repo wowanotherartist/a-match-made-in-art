@@ -10,16 +10,18 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap');
 
 :root {
-  --pink: #f5a6c8;
-  --light-pink: #ffd5e6;
-  --pale-pink: #fff0f6;
-  --dark-pink: #e85b98;
-  --red: #c9365c;
-  --ink: #38232f;
-  --white: #fff;
+  --pink: #ffcce1;
+  --light-pink: #fff3eb;
+  --pale-pink: #fff3eb;
+  --dark-pink: #e66268;
+  --red: #e66268;
+  --ink: #2d2d2d;
+  --white: #fff3eb;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -74,13 +76,12 @@ h1 {
 
 .heart {
   font-size: 23px;
-  color: #fff;
-  opacity: .45;
+  color: var(--light-pink);
+  opacity: 1;
   transition: .2s;
 }
 
 .heart.active {
-  opacity: 1;
   color: var(--red);
 }
 
@@ -123,7 +124,7 @@ h2 {
 
 .answer.selected {
   background: var(--dark-pink);
-  color: white;
+  color: var(--white);
   border-color: var(--ink);
   box-shadow: 3px 3px 0 var(--ink);
 }
@@ -132,7 +133,7 @@ h2 {
   margin-top: 24px;
   padding: 14px 30px;
   background: var(--red);
-  color: white;
+  color: var(--white);
   border: 2px solid var(--ink);
   border-radius: 30px;
   font: 700 15px 'DM Sans', sans-serif;
@@ -141,7 +142,9 @@ h2 {
   transition: .15s;
 }
 
-.next:hover { transform: translateY(-2px); }
+.next:hover {
+  transform: translateY(-2px);
+}
 
 .next:disabled {
   opacity: .4;
@@ -173,16 +176,19 @@ h2 {
   display: inline-block;
   padding: 15px 25px;
   background: var(--red);
-  color: white;
+  color: var(--white);
   border: 2px solid var(--ink);
   border-radius: 30px;
   text-decoration: none;
   font-weight: 800;
   font-size: 14px;
   box-shadow: 3px 3px 0 var(--ink);
+  transition: .15s;
 }
 
-.shop-link:hover { transform: translateY(-2px); }
+.shop-link:hover {
+  transform: translateY(-2px);
+}
 
 .restart {
   display: block;
@@ -195,12 +201,22 @@ h2 {
   cursor: pointer;
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 
 @media (max-width: 480px) {
-  body { padding: 20px 13px; }
-  .quiz { padding: 25px 18px; }
-  h2 { font-size: 22px; }
+  body {
+    padding: 20px 13px;
+  }
+
+  .quiz {
+    padding: 25px 18px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
 }
 </style>
 </head>
@@ -209,183 +225,342 @@ h2 {
 
 <main class="quiz">
 
+  <!-- WELCOME SCREEN -->
   <section id="welcome">
-    <div class="decor">♥ ✦ ♥</div>
+    <div class="decor">♥ ♥ ♥</div>
+
     <h1>A Match Made in Art</h1>
+
     <p class="intro">
       Not sure where to start? Answer 5 questions and find the art collection that matches your personality!
     </p>
-    <button class="next" onclick="startQuiz()">LET'S FIND YOUR MATCH ♥</button>
+
+    <button class="next" onclick="startQuiz()">
+      LET'S FIND YOUR MATCH ♥
+    </button>
   </section>
 
+
+  <!-- QUIZ QUESTIONS -->
   <section id="quiz-section" class="hidden">
-    <div class="decor">♥ ✦ ♥</div>
+
+    <div class="decor">♥ ♥ ♥</div>
+
     <div class="progress" id="progress"></div>
+
     <div class="question-number" id="question-number"></div>
+
     <h2 id="question"></h2>
+
     <div class="answers" id="answers"></div>
-    <button class="next" id="next" disabled onclick="nextQuestion()">NEXT QUESTION →</button>
+
+    <button
+      class="next"
+      id="next"
+      disabled
+      onclick="nextQuestion()">
+      NEXT QUESTION →
+    </button>
+
   </section>
 
+
+  <!-- RESULTS SCREEN -->
   <section id="result" class="hidden">
-    <div class="decor">♥ ✦ ♥</div>
-    <div class="result-label">YOUR PERFECT MATCH IS...</div>
+
+    <div class="decor">♥ ♥ ♥</div>
+
+    <div class="result-label">
+      YOUR PERFECT MATCH IS...
+    </div>
+
     <div class="result-symbol" id="result-symbol"></div>
+
     <h1 id="result-title"></h1>
+
     <p class="result-description" id="result-description"></p>
-    <a class="shop-link" id="shop-link" href="#" target="_blank">SHOP MY COLLECTION ♥</a>
-    <button class="restart" onclick="restartQuiz()">TAKE THE QUIZ AGAIN</button>
+
+    <a
+      class="shop-link"
+      id="shop-link"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer">
+      SHOP MY COLLECTION ♥
+    </a>
+
+    <button class="restart" onclick="restartQuiz()">
+      TAKE THE QUIZ AGAIN
+    </button>
+
   </section>
 
 </main>
 
+
 <script>
+
+// ========================================
+// QUIZ QUESTIONS
+// ========================================
+
 const questions = [
+
   {
     question: "Which description best describes your wardrobe?",
     answers: [
-      { text: "Layers, oversized jumpers, knitwear and cosy outfits.", score: ["winter"] },
-      { text: "All my clothes are different shades of black.", score: ["spooky"] },
-      { text: "Colourful, playful and bold.", score: ["summer"] }
+      {
+        text: "Layers, oversized jumpers, knitwear and cosy outfits.",
+        score: ["winter"]
+      },
+      {
+        text: "All my clothes are different shades of black.",
+        score: ["spooky"]
+      },
+      {
+        text: "Colourful, playful and bold.",
+        score: ["summer"]
+      }
     ]
   },
+
   {
     question: "What drink suits you best?",
     answers: [
-      { text: "A sweet cocktail!", score: ["summer"] },
-      { text: "A smooth whiskey.", score: ["classics"] },
-      { text: "A soothing hot drink.", score: ["winter"] }
+      {
+        text: "A sweet cocktail!",
+        score: ["summer"]
+      },
+      {
+        text: "A smooth whiskey.",
+        score: ["classics"]
+      },
+      {
+        text: "A soothing hot drink.",
+        score: ["winter"]
+      }
     ]
   },
+
   {
     question: "Which of these TV shows would you be most likely to binge-watch?",
     answers: [
-      { text: "Charmed", score: ["mystical"] },
-      { text: "Yellowstone", score: ["wild"] },
-      { text: "American Horror Story", score: ["spooky"] }
+      {
+        text: "Charmed",
+        score: ["mystical"]
+      },
+      {
+        text: "Yellowstone",
+        score: ["wild"]
+      },
+      {
+        text: "American Horror Story",
+        score: ["spooky"]
+      }
     ]
   },
+
   {
     question: "What's your ideal way to spend a day off?",
     answers: [
-      { text: "Exploring a sunny seaside town, browsing little shops and enjoying a cocktail.", score: ["summer"] },
-      { text: "Curling up somewhere cosy with a blanket, a hot drink and a favourite film.", score: ["winter"] },
-      { text: "Dressing up, going somewhere lovely and making an ordinary day feel special.", score: ["classics"] }
+      {
+        text: "At the beach, enjoying the sea and sunshine.",
+        score: ["summer"]
+      },
+      {
+        text: "Curling up under a cosy blanket with a hot drink and your fave film.",
+        score: ["winter"]
+      },
+      {
+        text: "Dressing up, going somewhere fancy and making an ordinary day feel special.",
+        score: ["classics"]
+      }
     ]
   },
+
   {
-    question: "Which of these animals is your favourite?",
+    question: "Which of these animals do you like more?",
     answers: [
-      { text: "Cats – independent, curious and a little mysterious.", score: ["mystical"] },
-      { text: "Horses – spirited, free and adventurous.", score: ["wild"] },
-      { text: "Crows – clever, curious and a little ominous.", score: ["spooky"] }
+      {
+        text: "Cats",
+        score: ["mystical"]
+      },
+      {
+        text: "Horses",
+        score: ["wild"]
+      },
+      {
+        text: "Crows",
+        score: ["spooky"]
+      }
     ]
   }
+
 ];
 
+
+// ========================================
+// COLLECTION RESULTS
+// ========================================
+
 const collections = {
+
   winter: {
     name: "A Little Winter Magic",
     symbol: "❄️",
     description: "You're a cosy soul who loves life's little comforts. You appreciate warm moments, seasonal magic and artwork that makes a space feel like home.",
     url: "https://wowanothershop.com/collections/a-little-winter-magic"
   },
+
   summer: {
     name: "The Summer Club",
     symbol: "☀️",
-    description: "You're sunshine in human form! Playful, colourful and full of life, you love a little fun and artwork that brings a burst of personality to any space.",
+    description: "You're sunshine in human form! Playful, colourful and full of life, you like to have fun and prefer artwork that feels positive and warm.",
     url: "https://wowanothershop.com/collections/the-summer-club"
   },
+
   classics: {
     name: "The Classics",
     symbol: "💋",
-    description: "You have an eye for timeless style. A little glamour, a touch of elegance and a love for the things that never go out of fashion are right up your street.",
+    description: "You have an eye for timeless style. A little glamour, a touch of elegance and a love for the things that never go out of fashion.",
     url: "https://wowanothershop.com/collections/the-classics"
   },
+
   wild: {
     name: "Wild at Heart",
     symbol: "🤠",
-    description: "You're independent, adventurous and never afraid to do things your own way. You have a rebellious streak and a soft spot for a little wild-west charm.",
+    description: "You have an adventurous spirit and like to do things your own way. You have a rebellious streak and a soft spot for a little wild-west charm.",
     url: "https://wowanothershop.com/collections/wild-at-heart"
   },
+
   spooky: {
     name: "Spooky Art Lover",
     symbol: "🖤",
-    description: "You have a darker side and you're not afraid to show it. A little mystery, a little mischief and a love for all things spooky make this your kind of world.",
+    description: "You find comfort in the darker things and you're not afraid to show it. Halloween is like Christmas for you. You like a little mystery, a little mischief and love all things spooky.",
     url: "https://wowanothershop.com/collections/spooky-art-lover"
   },
+
   mystical: {
     name: "Mystical Muses",
     symbol: "🌙",
-    description: "You're imaginative, curious and drawn to a little magic. You love the mysterious, the celestial and artwork with a touch of otherworldly charm.",
+    description: "You're imaginative, curious and drawn to a little magic. You've blamed the moon for your problems at least once and love a touch of otherworldly charm.",
     url: "https://wowanothershop.com/collections/mystical-muses"
   }
+
 };
+
+
+// ========================================
+// QUIZ FUNCTIONALITY
+// ========================================
 
 let currentQuestion = 0;
 let selectedAnswer = null;
 let scores = {};
 
+
 function resetScores() {
   scores = {};
-  Object.keys(collections).forEach(key => scores[key] = 0);
+
+  Object.keys(collections).forEach(key => {
+    scores[key] = 0;
+  });
 }
 
+
 function startQuiz() {
+
   resetScores();
+
   currentQuestion = 0;
+
   document.getElementById("welcome").classList.add("hidden");
   document.getElementById("result").classList.add("hidden");
   document.getElementById("quiz-section").classList.remove("hidden");
+
   showQuestion();
 }
 
+
 function showQuestion() {
+
   selectedAnswer = null;
+
   const q = questions[currentQuestion];
 
   document.getElementById("question-number").textContent =
     `QUESTION ${currentQuestion + 1} OF ${questions.length}`;
+
   document.getElementById("question").textContent = q.question;
+
   document.getElementById("next").disabled = true;
+
   document.getElementById("next").textContent =
-    currentQuestion === questions.length - 1 ? "SEE MY MATCH ♥" : "NEXT QUESTION →";
+    currentQuestion === questions.length - 1
+      ? "SEE MY MATCH ♥"
+      : "NEXT QUESTION →";
+
+
+  // Progress hearts
 
   document.getElementById("progress").innerHTML =
     questions.map((_, i) =>
       `<span class="heart ${i <= currentQuestion ? "active" : ""}">♥</span>`
     ).join("");
 
+
+  // Answer buttons
+
   const answers = document.getElementById("answers");
+
   answers.innerHTML = "";
 
   q.answers.forEach((answer, index) => {
+
     const button = document.createElement("button");
+
     button.className = "answer";
+
     button.textContent = answer.text;
+
     button.onclick = () => selectAnswer(index);
+
     answers.appendChild(button);
+
   });
+
 }
+
 
 function selectAnswer(index) {
+
   selectedAnswer = index;
+
   document.querySelectorAll(".answer").forEach((button, i) => {
+
     button.classList.toggle("selected", i === index);
+
   });
+
   document.getElementById("next").disabled = false;
+
 }
 
+
 function nextQuestion() {
+
   if (selectedAnswer === null) return;
 
   const answer = questions[currentQuestion].answers[selectedAnswer];
 
-  // Primary collection gets two points.
+
+  // Primary collection receives two points.
+
   scores[answer.score[0]] += 2;
 
-  // Related collection gets one point.
-  // These secondary associations are deliberately kept light.
+
+  // Secondary collection receives one point.
+
   const secondary = {
     winter: "mystical",
     summer: "wild",
@@ -397,36 +572,75 @@ function nextQuestion() {
 
   scores[secondary[answer.score[0]]] += 1;
 
+
   currentQuestion++;
 
+
   if (currentQuestion < questions.length) {
+
     showQuestion();
+
   } else {
+
     showResult();
+
   }
+
 }
+
+
+// ========================================
+// DISPLAY FINAL RESULT
+// ========================================
 
 function showResult() {
+
   document.getElementById("quiz-section").classList.add("hidden");
+
   document.getElementById("result").classList.remove("hidden");
 
-  const maxScore = Math.max(...Object.values(scores));
-  const winners = Object.keys(scores).filter(key => scores[key] === maxScore);
 
-  // If tied, use a consistent collection order.
+  const maxScore = Math.max(...Object.values(scores));
+
+  const winners = Object.keys(scores).filter(
+    key => scores[key] === maxScore
+  );
+
+
+  // Consistent collection order breaks ties.
+
   const winner = winners[0];
+
   const collection = collections[winner];
 
-  document.getElementById("result-symbol").textContent = collection.symbol;
-  document.getElementById("result-title").textContent = collection.name;
-  document.getElementById("result-description").textContent = collection.description;
-  document.getElementById("shop-link").href = collection.url;
+
+  document.getElementById("result-symbol").textContent =
+    collection.symbol;
+
+  document.getElementById("result-title").textContent =
+    collection.name;
+
+  document.getElementById("result-description").textContent =
+    collection.description;
+
+  document.getElementById("shop-link").href =
+    collection.url;
+
 }
 
+
+// ========================================
+// RESTART QUIZ
+// ========================================
+
 function restartQuiz() {
+
   document.getElementById("result").classList.add("hidden");
+
   document.getElementById("welcome").classList.remove("hidden");
+
 }
+
 </script>
 
 </body>
