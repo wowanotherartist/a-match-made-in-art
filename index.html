@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -22,132 +22,105 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
+      min-height: 100%;
+      background-color: var(--pink) !important;
+    }
+
+    body {
       padding: 24px 16px;
-      background: var(--pink);
       color: var(--charcoal);
       font-family: 'DM Sans', sans-serif;
     }
 
-    button {
-      font-family: inherit;
-    }
-
-    .quiz-container {
-      width: 100%;
-      max-width: 650px;
-      margin: 0 auto;
-    }
-
     .quiz-card {
-      background: var(--cream);
-      border: 3px solid var(--charcoal);
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 36px 32px;
+      background-color: var(--pink);
+      border: 2px solid var(--charcoal);
       border-radius: 22px;
-      padding: 34px 30px;
-      box-shadow: 7px 7px 0 var(--charcoal);
       text-align: center;
+      box-shadow: 5px 5px 0 var(--charcoal);
     }
 
     .hearts {
+      margin-bottom: 12px;
       color: var(--coral);
-      font-size: 22px;
+      font-size: 25px;
       letter-spacing: 7px;
-      margin-bottom: 15px;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Fredoka', sans-serif;
-      color: var(--charcoal);
     }
 
     h1 {
-      font-size: clamp(32px, 6vw, 48px);
-      line-height: 1.1;
-      margin: 8px 0 14px;
+      margin: 0 0 10px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(30px, 6vw, 43px);
+      line-height: 1.15;
+      font-weight: 600;
     }
 
-    h2 {
-      font-size: clamp(23px, 4vw, 30px);
-      line-height: 1.25;
-      margin: 12px 0 24px;
+    .subtitle {
+      max-width: 480px;
+      margin: 0 auto 26px;
+      font-size: 15px;
+      line-height: 1.6;
     }
 
-    p {
-      line-height: 1.65;
+    .progress-area {
+      margin-bottom: 25px;
     }
 
-    .intro {
-      max-width: 470px;
-      margin: 0 auto 25px;
-      font-size: 16px;
-    }
-
-    .button {
-      display: inline-block;
-      border: 2px solid var(--charcoal);
-      border-radius: 999px;
-      background: var(--coral);
-      color: white;
-      font-size: 16px;
+    .progress-label {
+      margin-bottom: 9px;
+      font-size: 13px;
       font-weight: 700;
-      padding: 13px 30px;
-      cursor: pointer;
-      box-shadow: 3px 3px 0 var(--charcoal);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .button:hover {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0 var(--charcoal);
-    }
-
-    .button:focus-visible,
-    .answer:focus-visible {
-      outline: 3px solid var(--charcoal);
-      outline-offset: 4px;
-    }
-
-    .progress {
+    .progress-hearts {
       display: flex;
       justify-content: center;
       gap: 9px;
-      margin: 0 0 25px;
+      color: #ffffff;
+      font-size: 23px;
     }
 
-    .progress-heart {
-      color: #e7b8c9;
-      font-size: 22px;
+    .progress-hearts span {
+      opacity: 0.45;
     }
 
-    .progress-heart.active {
+    .progress-hearts span.filled {
       color: var(--coral);
+      opacity: 1;
     }
 
-    .question-number {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--coral);
-      margin-bottom: 7px;
+    .question {
+      margin: 0 0 20px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 23px;
+      font-weight: 600;
+      line-height: 1.35;
     }
 
     .answers {
       display: grid;
       gap: 12px;
-      margin: 0 auto 25px;
-      text-align: left;
+      margin-bottom: 24px;
     }
 
     .answer {
+      display: block;
       width: 100%;
-      padding: 15px 18px;
+      padding: 15px 17px;
+      background: #ffffff;
       border: 2px solid var(--charcoal);
       border-radius: 13px;
-      background: white;
       color: var(--charcoal);
+      font-family: 'DM Sans', sans-serif;
       font-size: 15px;
+      font-weight: 600;
       line-height: 1.45;
       text-align: left;
       cursor: pointer;
@@ -155,61 +128,97 @@
     }
 
     .answer:hover {
-      background: var(--pink);
       transform: translateY(-2px);
+      background: var(--cream);
     }
 
     .answer.selected {
-      background: var(--pink);
-      border-color: var(--coral);
-      box-shadow: inset 0 0 0 1px var(--coral);
+      background: var(--coral);
+      color: #ffffff;
+      border-color: var(--charcoal);
     }
 
-    .answer.selected::before {
-      content: "♥ ";
-      color: var(--coral);
-      font-weight: 700;
+    .main-button {
+      display: inline-block;
+      width: 100%;
+      max-width: 280px;
+      padding: 14px 24px;
+      background: var(--coral);
+      border: 2px solid var(--charcoal);
+      border-radius: 30px;
+      color: #ffffff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--charcoal);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .next-button {
-      min-width: 180px;
+    .main-button:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--charcoal);
     }
 
-    .next-button:disabled {
+    .main-button:disabled {
       opacity: 0.45;
       cursor: not-allowed;
       transform: none;
       box-shadow: 3px 3px 0 var(--charcoal);
     }
 
-    .result-icon {
-      font-size: 48px;
-      margin: 5px 0 10px;
-    }
-
-    .result-name {
-      font-size: clamp(29px, 5vw, 39px);
-      margin: 8px 0 14px;
+    .result-heading {
+      margin: 8px 0 12px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 30px;
+      line-height: 1.2;
     }
 
     .result-description {
-      max-width: 460px;
-      margin: 0 auto 25px;
-      font-size: 16px;
+      margin: 0 auto 22px;
+      max-width: 480px;
+      font-size: 15px;
+      line-height: 1.65;
     }
 
-    .shop-button {
-      text-decoration: none;
+    .result-emoji {
+      margin-bottom: 8px;
+      font-size: 42px;
+    }
+
+    .collection-link {
+      display: inline-block;
+      width: 100%;
+      max-width: 300px;
       margin-bottom: 20px;
+      padding: 14px 22px;
+      background: var(--coral);
+      border: 2px solid var(--charcoal);
+      border-radius: 30px;
+      color: #ffffff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 3px 3px 0 var(--charcoal);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .collection-link:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--charcoal);
     }
 
     .restart-button {
       display: block;
-      margin: 18px auto 0;
+      margin: 0 auto;
+      padding: 9px 15px;
       background: transparent;
-      color: var(--charcoal);
       border: none;
+      color: var(--charcoal);
+      font-family: 'DM Sans', sans-serif;
       font-size: 14px;
+      font-weight: 700;
       text-decoration: underline;
       cursor: pointer;
     }
@@ -218,19 +227,22 @@
       display: none;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 520px) {
       body {
-        padding: 15px 12px;
+        padding: 14px 10px;
       }
 
       .quiz-card {
-        padding: 27px 19px;
+        padding: 27px 18px;
         border-radius: 18px;
-        box-shadow: 5px 5px 0 var(--charcoal);
+      }
+
+      .question {
+        font-size: 21px;
       }
 
       .answer {
-        padding: 14px;
+        padding: 13px 14px;
         font-size: 14px;
       }
     }
@@ -239,96 +251,108 @@
 
 <body>
 
-  <main class="quiz-container">
-    <section class="quiz-card">
+  <main class="quiz-card">
 
-      <!-- INTRODUCTION -->
-      <div id="welcome">
-        <div class="hearts">♥ ♥ ♥</div>
-        <h1>A Match Made in Art</h1>
-        <p class="intro">
-          Not sure where to start? Answer 6 questions and find the art collection that matches your personality!
-        </p>
-        <button class="button" onclick="startQuiz()">Find my match</button>
+    <div class="hearts">♥ ♥ ♥</div>
+
+    <h1>A Match Made in Art</h1>
+
+    <p class="subtitle">
+      Not sure where to start? Answer 6 questions and find the art collection that matches your personality!
+    </p>
+
+    <section id="quiz">
+
+      <div class="progress-area">
+        <div class="progress-label" id="progress-label">Question 1 of 6</div>
+        <div class="progress-hearts" id="progress-hearts">
+          <span class="filled">♥</span>
+          <span>♥</span>
+          <span>♥</span>
+          <span>♥</span>
+          <span>♥</span>
+          <span>♥</span>
+        </div>
       </div>
 
-      <!-- QUESTIONS -->
-      <div id="quiz" class="hidden">
-        <div class="progress" id="progress"></div>
-        <div class="question-number" id="questionNumber"></div>
-        <h2 id="questionText"></h2>
-        <div class="answers" id="answers"></div>
-        <button class="button next-button" id="nextButton" onclick="nextQuestion()" disabled>
-          Next question
-        </button>
-      </div>
+      <h2 class="question" id="question"></h2>
 
-      <!-- RESULTS -->
-      <div id="result" class="hidden">
-        <div class="hearts">♥ ♥ ♥</div>
-        <div class="result-icon" id="resultIcon"></div>
-        <h2 class="result-name" id="resultName"></h2>
-        <p class="result-description" id="resultDescription"></p>
-        <a class="button shop-button" id="shopLink" href="#" target="_blank" rel="noopener">
-          Explore your collection
-        </a>
-        <button class="restart-button" onclick="restartQuiz()">
-          Take the quiz again
-        </button>
-      </div>
+      <div class="answers" id="answers"></div>
+
+      <button class="main-button" id="next-button" disabled>
+        Next Question →
+      </button>
 
     </section>
+
+    <section id="result" class="hidden">
+
+      <div class="result-emoji" id="result-emoji"></div>
+
+      <h2 class="result-heading">
+        Your perfect match is...
+      </h2>
+
+      <h2 class="result-heading" id="result-title"></h2>
+
+      <p class="result-description" id="result-description"></p>
+
+      <a class="collection-link" id="collection-link" href="#" target="_blank" rel="noopener noreferrer">
+        Explore your collection →
+      </a>
+
+      <button class="restart-button" id="restart-button">
+        ↻ Take the quiz again
+      </button>
+
+    </section>
+
   </main>
 
   <script>
-    // COLLECTIONS
-
     const collections = {
       winter: {
         name: "A Little Winter Magic",
-        icon: "❄️",
-        description: "You're a cosy soul who loves life's little comforts. You appreciate warm moments, seasonal magic and artwork that makes a space feel like home.",
-        link: "https://wowanothershop.com/collections/a-little-winter-magic"
+        emoji: "❄️",
+        description: "You love cosy comforts, little moments of magic and the charm of the colder months. Your perfect collection is full of warmth, whimsy and winter-inspired artwork.",
+        url: "https://wowanothershop.com/collections/a-little-winter-magic"
       },
 
       summer: {
         name: "The Summer Club",
-        icon: "☀️",
-        description: "You're sunshine in human form! Playful, colourful and full of life, you like to have fun and prefer artwork that feels positive and warm.",
-        link: "https://wowanothershop.com/collections/the-summer-club"
+        emoji: "☀️",
+        description: "You're playful, colourful and always ready for a little sunshine. You gravitate towards bright artwork, fun personalities and carefree summer energy.",
+        url: "https://wowanothershop.com/collections/the-summer-club"
       },
 
       classics: {
         name: "The Classics",
-        icon: "💋",
-        description: "You have an eye for timeless style. A little glamour, a touch of elegance and a love for the things that never go out of fashion.",
-        link: "https://wowanothershop.com/collections/the-classics"
+        emoji: "💋",
+        description: "You appreciate timeless glamour, elegance and a little vintage sophistication. You know that some things never go out of style.",
+        url: "https://wowanothershop.com/collections/the-classics"
       },
 
       wild: {
         name: "Wild at Heart",
-        icon: "🤠",
-        description: "You have an adventurous spirit and like to do things your own way. You have a rebellious streak and a soft spot for a little wild-west charm.",
-        link: "https://wowanothershop.com/collections/wild-at-heart"
+        emoji: "🤠",
+        description: "Independent, adventurous and a little rebellious, you have a soft spot for free spirits and women who do things their own way.",
+        url: "https://wowanothershop.com/collections/wild-at-heart"
       },
 
       spooky: {
         name: "Spooky Art Lover",
-        icon: "🕷️",
-        description: "You find comfort in the darker things and you're not afraid to show it. Halloween is like Christmas for you. You like a little mystery, a little mischief and love all things spooky.",
-        link: "https://wowanothershop.com/collections/spooky-art-lover"
+        emoji: "🖤",
+        description: "You like your art with a darker side. From gothic glamour to horror-inspired mischief, you appreciate the strange, spooky and wonderfully macabre.",
+        url: "https://wowanothershop.com/collections/spooky-art-lover"
       },
 
       mystical: {
         name: "Mystical Muses",
-        icon: "🌙",
-        description: "You're imaginative, curious and drawn to a little magic. You've blamed the moon for your problems at least once and love a touch of otherworldly charm.",
-        link: "https://wowanothershop.com/collections/mystical-muses"
+        emoji: "🌙",
+        description: "You're drawn to all things magical, mysterious and otherworldly. You love a little celestial energy, a touch of witchcraft and artwork with an enchanting twist.",
+        url: "https://wowanothershop.com/collections/mystical-muses"
       }
     };
-
-
-    // SECONDARY COLLECTION POINTS
 
     const secondaryMatches = {
       winter: "mystical",
@@ -339,11 +363,7 @@
       mystical: "spooky"
     };
 
-
-    // QUIZ QUESTIONS
-
     const questions = [
-
       {
         question: "Which description best describes your wardrobe?",
         answers: [
@@ -361,7 +381,6 @@
           }
         ]
       },
-
       {
         question: "What drink suits you best?",
         answers: [
@@ -379,7 +398,6 @@
           }
         ]
       },
-
       {
         question: "Which of these TV shows would you be most likely to binge-watch?",
         answers: [
@@ -397,7 +415,6 @@
           }
         ]
       },
-
       {
         question: "What's your ideal way to spend a day off?",
         answers: [
@@ -415,7 +432,6 @@
           }
         ]
       },
-
       {
         question: "Which of these animals do you like more?",
         answers: [
@@ -433,195 +449,180 @@
           }
         ]
       },
-
       {
         question: "Your spouse has mysteriously disappeared. What's your statement to the police?",
         answers: [
           {
-            text: "I haven't seen them all day.",
+            text: "“I haven't seen them all day.”",
             collection: "classics"
           },
           {
-            text: "Well, that's a relief.",
+            text: "“Well, that's a relief.”",
             collection: "classics"
           },
           {
-            text: "I wouldn't go looking if I were you.",
+            text: "“I wouldn't go looking if I were you.”",
             collection: "spooky"
           }
         ]
       }
-
     ];
 
-
-    // QUIZ STATE
+    const tieOrder = [
+      "winter",
+      "summer",
+      "classics",
+      "wild",
+      "spooky",
+      "mystical"
+    ];
 
     let currentQuestion = 0;
     let selectedAnswer = null;
     let scores = {};
 
+    const questionElement = document.getElementById("question");
+    const answersElement = document.getElementById("answers");
+    const nextButton = document.getElementById("next-button");
+    const progressLabel = document.getElementById("progress-label");
+    const progressHearts = document.getElementById("progress-hearts");
+    const quizSection = document.getElementById("quiz");
+    const resultSection = document.getElementById("result");
 
     function resetScores() {
-      scores = {};
+      scores = {
+        winter: 0,
+        summer: 0,
+        classics: 0,
+        wild: 0,
+        spooky: 0,
+        mystical: 0
+      };
+    }
 
-      Object.keys(collections).forEach(key => {
-        scores[key] = 0;
+    function updateProgress() {
+      progressLabel.textContent =
+        `Question ${currentQuestion + 1} of ${questions.length}`;
+
+      const hearts = progressHearts.querySelectorAll("span");
+
+      hearts.forEach((heart, index) => {
+        heart.classList.toggle("filled", index <= currentQuestion);
       });
     }
-
-
-    // START QUIZ
-
-    function startQuiz() {
-      currentQuestion = 0;
-      selectedAnswer = null;
-      resetScores();
-
-      document.getElementById("welcome").classList.add("hidden");
-      document.getElementById("result").classList.add("hidden");
-      document.getElementById("quiz").classList.remove("hidden");
-
-      showQuestion();
-    }
-
-
-    // DISPLAY QUESTION
 
     function showQuestion() {
       selectedAnswer = null;
 
       const question = questions[currentQuestion];
 
-      document.getElementById("questionNumber").textContent =
-        `Question ${currentQuestion + 1} of ${questions.length}`;
-
-      document.getElementById("questionText").textContent =
-        question.question;
-
-      document.getElementById("nextButton").disabled = true;
-
-      document.getElementById("nextButton").textContent =
-        currentQuestion === questions.length - 1
-          ? "See my result"
-          : "Next question";
-
-      // Update progress hearts
-
-      const progress = document.getElementById("progress");
-      progress.innerHTML = "";
-
-      for (let i = 0; i < questions.length; i++) {
-        const heart = document.createElement("span");
-        heart.className = "progress-heart" + (i <= currentQuestion ? " active" : "");
-        heart.textContent = "♥";
-        progress.appendChild(heart);
-      }
-
-      // Display answers
-
-      const answersContainer = document.getElementById("answers");
-      answersContainer.innerHTML = "";
+      questionElement.textContent = question.question;
+      answersElement.innerHTML = "";
 
       question.answers.forEach((answer, index) => {
         const button = document.createElement("button");
 
-        button.className = "answer";
         button.type = "button";
+        button.className = "answer";
         button.textContent = answer.text;
 
-        button.addEventListener("click", () => selectAnswer(index));
+        button.addEventListener("click", () => {
+          selectAnswer(button, answer);
+        });
 
-        answersContainer.appendChild(button);
-      });
-    }
-
-
-    // SELECT ANSWER
-
-    function selectAnswer(index) {
-      selectedAnswer = index;
-
-      const answerButtons = document.querySelectorAll(".answer");
-
-      answerButtons.forEach((button, i) => {
-        button.classList.toggle("selected", i === index);
+        answersElement.appendChild(button);
       });
 
-      document.getElementById("nextButton").disabled = false;
+      nextButton.disabled = true;
+
+      nextButton.textContent =
+        currentQuestion === questions.length - 1
+          ? "See my match →"
+          : "Next Question →";
+
+      updateProgress();
     }
 
+    function selectAnswer(button, answer) {
+      document.querySelectorAll(".answer").forEach(item => {
+        item.classList.remove("selected");
+      });
 
-    // NEXT QUESTION / CALCULATE SCORE
+      button.classList.add("selected");
 
-    function nextQuestion() {
-      if (selectedAnswer === null) return;
+      selectedAnswer = answer;
+      nextButton.disabled = false;
+    }
 
-      const answer = questions[currentQuestion].answers[selectedAnswer];
+    function recordAnswer() {
+      scores[selectedAnswer.collection] += 2;
 
-      // Main collection receives 2 points
-      scores[answer.collection] += 2;
+      const secondary = secondaryMatches[selectedAnswer.collection];
 
-      // Secondary collection receives 1 point
-      const secondary = secondaryMatches[answer.collection];
-      scores[secondary] += 1;
+      if (secondary) {
+        scores[secondary] += 1;
+      }
+    }
 
-      currentQuestion++;
+    function getWinningCollection() {
+      let winner = tieOrder[0];
 
-      if (currentQuestion < questions.length) {
+      tieOrder.forEach(collection => {
+        if (scores[collection] > scores[winner]) {
+          winner = collection;
+        }
+      });
+
+      return winner;
+    }
+
+    function showResult() {
+      const winner = getWinningCollection();
+      const collection = collections[winner];
+
+      quizSection.classList.add("hidden");
+      resultSection.classList.remove("hidden");
+
+      document.getElementById("result-emoji").textContent =
+        collection.emoji;
+
+      document.getElementById("result-title").textContent =
+        collection.name;
+
+      document.getElementById("result-description").textContent =
+        collection.description;
+
+      document.getElementById("collection-link").href =
+        collection.url;
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (!selectedAnswer) return;
+
+      recordAnswer();
+
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
         showQuestion();
       } else {
         showResult();
       }
-    }
+    });
 
-
-    // DISPLAY RESULT
-
-    function showResult() {
-      document.getElementById("quiz").classList.add("hidden");
-      document.getElementById("result").classList.remove("hidden");
-
-      // Find highest score.
-      // In the event of a tie, collection order below decides the result.
-
-      const collectionOrder = [
-        "winter",
-        "summer",
-        "classics",
-        "wild",
-        "spooky",
-        "mystical"
-      ];
-
-      let winningCollection = collectionOrder[0];
-
-      collectionOrder.forEach(collection => {
-        if (scores[collection] > scores[winningCollection]) {
-          winningCollection = collection;
-        }
-      });
-
-      const result = collections[winningCollection];
-
-      document.getElementById("resultIcon").textContent = result.icon;
-      document.getElementById("resultName").textContent = result.name;
-      document.getElementById("resultDescription").textContent = result.description;
-      document.getElementById("shopLink").href = result.link;
-    }
-
-
-    // RESTART QUIZ
-
-    function restartQuiz() {
+    document.getElementById("restart-button").addEventListener("click", () => {
       currentQuestion = 0;
       selectedAnswer = null;
+
       resetScores();
 
-      document.getElementById("result").classList.add("hidden");
-      document.getElementById("welcome").classList.remove("hidden");
-    }
+      resultSection.classList.add("hidden");
+      quizSection.classList.remove("hidden");
 
+      showQuestion();
+    });
+
+    resetScores();
+    showQuestion();
   </script>
 
 </body>
