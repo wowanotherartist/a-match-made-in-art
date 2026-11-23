@@ -2,646 +2,629 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Match Made in Art</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Match Made in Art</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap');
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-:root {
-  --pink: #ffcce1;
-  --light-pink: #fff3eb;
-  --pale-pink: #fff3eb;
-  --dark-pink: #e66268;
-  --red: #e66268;
-  --ink: #2d2d2d;
-  --white: #fff3eb;
-}
+  <style>
+    :root {
+      --pink: #ffcce1;
+      --coral: #e66268;
+      --charcoal: #2d2d2d;
+      --cream: #fff3eb;
+    }
 
-* {
-  box-sizing: border-box;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  margin: 0;
-  padding: 35px 16px;
-  min-height: 100vh;
-  background: var(--pink);
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: var(--pink);
+      color: var(--charcoal);
+      font-family: 'DM Sans', sans-serif;
+    }
 
-.quiz {
-  width: 100%;
-  max-width: 620px;
-  background: var(--pink);
-  border: 3px solid var(--ink);
-  border-radius: 22px;
-  padding: 32px;
-  box-shadow: 8px 8px 0 var(--ink);
-  text-align: center;
-}
+    button {
+      font-family: inherit;
+    }
 
-.decor {
-  color: var(--red);
-  font-size: 25px;
-  letter-spacing: 8px;
-  margin-bottom: 8px;
-}
+    .quiz-container {
+      width: 100%;
+      max-width: 650px;
+      margin: 0 auto;
+    }
 
-h1 {
-  font-family: 'Fredoka', sans-serif;
-  font-size: clamp(32px, 7vw, 46px);
-  line-height: 1.1;
-  margin: 0 0 12px;
-}
+    .quiz-card {
+      background: var(--cream);
+      border: 3px solid var(--charcoal);
+      border-radius: 22px;
+      padding: 34px 30px;
+      box-shadow: 7px 7px 0 var(--charcoal);
+      text-align: center;
+    }
 
-.intro {
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 0 auto 25px;
-  max-width: 420px;
-}
+    .hearts {
+      color: var(--coral);
+      font-size: 22px;
+      letter-spacing: 7px;
+      margin-bottom: 15px;
+    }
 
-.progress {
-  display: flex;
-  justify-content: center;
-  gap: 13px;
-  margin: 22px 0;
-}
+    h1, h2, h3 {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--charcoal);
+    }
 
-.heart {
-  font-size: 23px;
-  color: var(--light-pink);
-  opacity: 1;
-  transition: .2s;
-}
+    h1 {
+      font-size: clamp(32px, 6vw, 48px);
+      line-height: 1.1;
+      margin: 8px 0 14px;
+    }
 
-.heart.active {
-  color: var(--red);
-}
+    h2 {
+      font-size: clamp(23px, 4vw, 30px);
+      line-height: 1.25;
+      margin: 12px 0 24px;
+    }
 
-.question-number {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 10px;
-}
+    p {
+      line-height: 1.65;
+    }
 
-h2 {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 25px;
-  margin: 0 0 22px;
-}
+    .intro {
+      max-width: 470px;
+      margin: 0 auto 25px;
+      font-size: 16px;
+    }
 
-.answers {
-  display: grid;
-  gap: 12px;
-}
+    .button {
+      display: inline-block;
+      border: 2px solid var(--charcoal);
+      border-radius: 999px;
+      background: var(--coral);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 13px 30px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--charcoal);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
 
-.answer {
-  width: 100%;
-  padding: 17px 16px;
-  background: var(--pale-pink);
-  border: 2px solid var(--ink);
-  border-radius: 13px;
-  color: var(--ink);
-  font: 600 15px 'DM Sans', sans-serif;
-  cursor: pointer;
-  transition: .15s;
-}
+    .button:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--charcoal);
+    }
 
-.answer:hover {
-  background: var(--light-pink);
-  transform: translateY(-2px);
-}
+    .button:focus-visible,
+    .answer:focus-visible {
+      outline: 3px solid var(--charcoal);
+      outline-offset: 4px;
+    }
 
-.answer.selected {
-  background: var(--dark-pink);
-  color: var(--white);
-  border-color: var(--ink);
-  box-shadow: 3px 3px 0 var(--ink);
-}
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      margin: 0 0 25px;
+    }
 
-.next {
-  margin-top: 24px;
-  padding: 14px 30px;
-  background: var(--red);
-  color: var(--white);
-  border: 2px solid var(--ink);
-  border-radius: 30px;
-  font: 700 15px 'DM Sans', sans-serif;
-  cursor: pointer;
-  box-shadow: 3px 3px 0 var(--ink);
-  transition: .15s;
-}
+    .progress-heart {
+      color: #e7b8c9;
+      font-size: 22px;
+    }
 
-.next:hover {
-  transform: translateY(-2px);
-}
+    .progress-heart.active {
+      color: var(--coral);
+    }
 
-.next:disabled {
-  opacity: .4;
-  cursor: not-allowed;
-  transform: none;
-}
+    .question-number {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 7px;
+    }
 
-.result-symbol {
-  font-size: 52px;
-  margin: 10px 0;
-}
+    .answers {
+      display: grid;
+      gap: 12px;
+      margin: 0 auto 25px;
+      text-align: left;
+    }
 
-.result-label {
-  color: var(--red);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
+    .answer {
+      width: 100%;
+      padding: 15px 18px;
+      border: 2px solid var(--charcoal);
+      border-radius: 13px;
+      background: white;
+      color: var(--charcoal);
+      font-size: 15px;
+      line-height: 1.45;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
 
-.result-description {
-  font-size: 16px;
-  line-height: 1.7;
-  max-width: 430px;
-  margin: 12px auto 25px;
-}
+    .answer:hover {
+      background: var(--pink);
+      transform: translateY(-2px);
+    }
 
-.shop-link {
-  display: inline-block;
-  padding: 15px 25px;
-  background: var(--red);
-  color: var(--white);
-  border: 2px solid var(--ink);
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 14px;
-  box-shadow: 3px 3px 0 var(--ink);
-  transition: .15s;
-}
+    .answer.selected {
+      background: var(--pink);
+      border-color: var(--coral);
+      box-shadow: inset 0 0 0 1px var(--coral);
+    }
 
-.shop-link:hover {
-  transform: translateY(-2px);
-}
+    .answer.selected::before {
+      content: "♥ ";
+      color: var(--coral);
+      font-weight: 700;
+    }
 
-.restart {
-  display: block;
-  margin: 22px auto 0;
-  border: 0;
-  background: transparent;
-  color: var(--ink);
-  text-decoration: underline;
-  font: 600 13px 'DM Sans', sans-serif;
-  cursor: pointer;
-}
+    .next-button {
+      min-width: 180px;
+    }
 
-.hidden {
-  display: none;
-}
+    .next-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: 3px 3px 0 var(--charcoal);
+    }
 
-@media (max-width: 480px) {
-  body {
-    padding: 20px 13px;
-  }
+    .result-icon {
+      font-size: 48px;
+      margin: 5px 0 10px;
+    }
 
-  .quiz {
-    padding: 25px 18px;
-  }
+    .result-name {
+      font-size: clamp(29px, 5vw, 39px);
+      margin: 8px 0 14px;
+    }
 
-  h2 {
-    font-size: 22px;
-  }
-}
-</style>
+    .result-description {
+      max-width: 460px;
+      margin: 0 auto 25px;
+      font-size: 16px;
+    }
+
+    .shop-button {
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+
+    .restart-button {
+      display: block;
+      margin: 18px auto 0;
+      background: transparent;
+      color: var(--charcoal);
+      border: none;
+      font-size: 14px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 15px 12px;
+      }
+
+      .quiz-card {
+        padding: 27px 19px;
+        border-radius: 18px;
+        box-shadow: 5px 5px 0 var(--charcoal);
+      }
+
+      .answer {
+        padding: 14px;
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<main class="quiz">
+  <main class="quiz-container">
+    <section class="quiz-card">
 
-  <!-- WELCOME SCREEN -->
-  <section id="welcome">
-    <div class="decor">♥ ♥ ♥</div>
+      <!-- INTRODUCTION -->
+      <div id="welcome">
+        <div class="hearts">♥ ♥ ♥</div>
+        <h1>A Match Made in Art</h1>
+        <p class="intro">
+          Not sure where to start? Answer 6 questions and find the art collection that matches your personality!
+        </p>
+        <button class="button" onclick="startQuiz()">Find my match</button>
+      </div>
 
-    <h1>A Match Made in Art</h1>
+      <!-- QUESTIONS -->
+      <div id="quiz" class="hidden">
+        <div class="progress" id="progress"></div>
+        <div class="question-number" id="questionNumber"></div>
+        <h2 id="questionText"></h2>
+        <div class="answers" id="answers"></div>
+        <button class="button next-button" id="nextButton" onclick="nextQuestion()" disabled>
+          Next question
+        </button>
+      </div>
 
-    <p class="intro">
-      Not sure where to start? Answer 5 questions and find the art collection that matches your personality!
-    </p>
+      <!-- RESULTS -->
+      <div id="result" class="hidden">
+        <div class="hearts">♥ ♥ ♥</div>
+        <div class="result-icon" id="resultIcon"></div>
+        <h2 class="result-name" id="resultName"></h2>
+        <p class="result-description" id="resultDescription"></p>
+        <a class="button shop-button" id="shopLink" href="#" target="_blank" rel="noopener">
+          Explore your collection
+        </a>
+        <button class="restart-button" onclick="restartQuiz()">
+          Take the quiz again
+        </button>
+      </div>
 
-    <button class="next" onclick="startQuiz()">
-      LET'S FIND YOUR MATCH ♥
-    </button>
-  </section>
+    </section>
+  </main>
 
+  <script>
+    // COLLECTIONS
 
-  <!-- QUIZ QUESTIONS -->
-  <section id="quiz-section" class="hidden">
-
-    <div class="decor">♥ ♥ ♥</div>
-
-    <div class="progress" id="progress"></div>
-
-    <div class="question-number" id="question-number"></div>
-
-    <h2 id="question"></h2>
-
-    <div class="answers" id="answers"></div>
-
-    <button
-      class="next"
-      id="next"
-      disabled
-      onclick="nextQuestion()">
-      NEXT QUESTION →
-    </button>
-
-  </section>
-
-
-  <!-- RESULTS SCREEN -->
-  <section id="result" class="hidden">
-
-    <div class="decor">♥ ♥ ♥</div>
-
-    <div class="result-label">
-      YOUR PERFECT MATCH IS...
-    </div>
-
-    <div class="result-symbol" id="result-symbol"></div>
-
-    <h1 id="result-title"></h1>
-
-    <p class="result-description" id="result-description"></p>
-
-    <a
-      class="shop-link"
-      id="shop-link"
-      href="#"
-      target="_blank"
-      rel="noopener noreferrer">
-      SHOP MY COLLECTION ♥
-    </a>
-
-    <button class="restart" onclick="restartQuiz()">
-      TAKE THE QUIZ AGAIN
-    </button>
-
-  </section>
-
-</main>
-
-
-<script>
-
-// ========================================
-// QUIZ QUESTIONS
-// ========================================
-
-const questions = [
-
-  {
-    question: "Which description best describes your wardrobe?",
-    answers: [
-      {
-        text: "Layers, oversized jumpers, knitwear and cosy outfits.",
-        score: ["winter"]
+    const collections = {
+      winter: {
+        name: "A Little Winter Magic",
+        icon: "❄️",
+        description: "You're a cosy soul who loves life's little comforts. You appreciate warm moments, seasonal magic and artwork that makes a space feel like home.",
+        link: "https://wowanothershop.com/collections/a-little-winter-magic"
       },
-      {
-        text: "All my clothes are different shades of black.",
-        score: ["spooky"]
+
+      summer: {
+        name: "The Summer Club",
+        icon: "☀️",
+        description: "You're sunshine in human form! Playful, colourful and full of life, you like to have fun and prefer artwork that feels positive and warm.",
+        link: "https://wowanothershop.com/collections/the-summer-club"
       },
-      {
-        text: "Colourful, playful and bold.",
-        score: ["summer"]
+
+      classics: {
+        name: "The Classics",
+        icon: "💋",
+        description: "You have an eye for timeless style. A little glamour, a touch of elegance and a love for the things that never go out of fashion.",
+        link: "https://wowanothershop.com/collections/the-classics"
+      },
+
+      wild: {
+        name: "Wild at Heart",
+        icon: "🤠",
+        description: "You have an adventurous spirit and like to do things your own way. You have a rebellious streak and a soft spot for a little wild-west charm.",
+        link: "https://wowanothershop.com/collections/wild-at-heart"
+      },
+
+      spooky: {
+        name: "Spooky Art Lover",
+        icon: "🕷️",
+        description: "You find comfort in the darker things and you're not afraid to show it. Halloween is like Christmas for you. You like a little mystery, a little mischief and love all things spooky.",
+        link: "https://wowanothershop.com/collections/spooky-art-lover"
+      },
+
+      mystical: {
+        name: "Mystical Muses",
+        icon: "🌙",
+        description: "You're imaginative, curious and drawn to a little magic. You've blamed the moon for your problems at least once and love a touch of otherworldly charm.",
+        link: "https://wowanothershop.com/collections/mystical-muses"
       }
-    ]
-  },
+    };
 
-  {
-    question: "What drink suits you best?",
-    answers: [
+
+    // SECONDARY COLLECTION POINTS
+    // Each answer gives 2 points to its main collection
+    // and 1 point to its secondary collection.
+
+    const secondaryMatches = {
+      winter: "mystical",
+      summer: "wild",
+      classics: "mystical",
+      wild: "summer",
+      spooky: "mystical",
+      mystical: "spooky"
+    };
+
+
+    // QUIZ QUESTIONS
+
+    const questions = [
+
       {
-        text: "A sweet cocktail!",
-        score: ["summer"]
+        question: "Which description best describes your wardrobe?",
+        answers: [
+          {
+            text: "Layers, oversized jumpers, knitwear and cosy outfits.",
+            collection: "winter"
+          },
+          {
+            text: "All my clothes are different shades of black.",
+            collection: "spooky"
+          },
+          {
+            text: "Colourful, playful and bold.",
+            collection: "summer"
+          }
+        ]
       },
+
       {
-        text: "A smooth whiskey.",
-        score: ["classics"]
+        question: "What drink suits you best?",
+        answers: [
+          {
+            text: "A sweet cocktail!",
+            collection: "summer"
+          },
+          {
+            text: "A smooth whiskey.",
+            collection: "classics"
+          },
+          {
+            text: "A soothing hot drink.",
+            collection: "winter"
+          }
+        ]
       },
+
       {
-        text: "A soothing hot drink.",
-        score: ["winter"]
+        question: "Which of these TV shows would you be most likely to binge-watch?",
+        answers: [
+          {
+            text: "Charmed",
+            collection: "mystical"
+          },
+          {
+            text: "Yellowstone",
+            collection: "wild"
+          },
+          {
+            text: "American Horror Story",
+            collection: "spooky"
+          }
+        ]
+      },
+
+      {
+        question: "What's your ideal way to spend a day off?",
+        answers: [
+          {
+            text: "At the beach, enjoying the sea and sunshine.",
+            collection: "summer"
+          },
+          {
+            text: "Curling up under a cosy blanket with a hot drink and your fave film.",
+            collection: "winter"
+          },
+          {
+            text: "Dressing up, going somewhere fancy and making an ordinary day feel special.",
+            collection: "classics"
+          }
+        ]
+      },
+
+      {
+        question: "Which of these animals do you like more?",
+        answers: [
+          {
+            text: "Cats",
+            collection: "mystical"
+          },
+          {
+            text: "Horses",
+            collection: "wild"
+          },
+          {
+            text: "Crows",
+            collection: "spooky"
+          }
+        ]
+      },
+
+      {
+        question: "Your spouse has mysteriously disappeared. What's your statement to the police?",
+        answers: [
+          {
+            text: "I haven't seen them all day.",
+            collection: "classics"
+          },
+          {
+            text: "Well, that's a relief.",
+            collection: "classics"
+          },
+          {
+            text: "I wouldn't go looking if I were you.",
+            collection: "spooky"
+          }
+        ]
       }
-    ]
-  },
 
-  {
-    question: "Which of these TV shows would you be most likely to binge-watch?",
-    answers: [
-      {
-        text: "Charmed",
-        score: ["mystical"]
-      },
-      {
-        text: "Yellowstone",
-        score: ["wild"]
-      },
-      {
-        text: "American Horror Story",
-        score: ["spooky"]
+    ];
+
+
+    // QUIZ STATE
+
+    let currentQuestion = 0;
+    let selectedAnswer = null;
+    let scores = {};
+
+
+    function resetScores() {
+      scores = {};
+
+      Object.keys(collections).forEach(key => {
+        scores[key] = 0;
+      });
+    }
+
+
+    // START QUIZ
+
+    function startQuiz() {
+      currentQuestion = 0;
+      selectedAnswer = null;
+      resetScores();
+
+      document.getElementById("welcome").classList.add("hidden");
+      document.getElementById("result").classList.add("hidden");
+      document.getElementById("quiz").classList.remove("hidden");
+
+      showQuestion();
+    }
+
+
+    // DISPLAY QUESTION
+
+    function showQuestion() {
+      selectedAnswer = null;
+
+      const question = questions[currentQuestion];
+
+      document.getElementById("questionNumber").textContent =
+        `Question ${currentQuestion + 1} of ${questions.length}`;
+
+      document.getElementById("questionText").textContent =
+        question.question;
+
+      document.getElementById("nextButton").disabled = true;
+
+      document.getElementById("nextButton").textContent =
+        currentQuestion === questions.length - 1
+          ? "See my result"
+          : "Next question";
+
+      // Update progress hearts
+
+      const progress = document.getElementById("progress");
+      progress.innerHTML = "";
+
+      for (let i = 0; i < questions.length; i++) {
+        const heart = document.createElement("span");
+        heart.className = "progress-heart" + (i <= currentQuestion ? " active" : "");
+        heart.textContent = "♥";
+        progress.appendChild(heart);
       }
-    ]
-  },
 
-  {
-    question: "What's your ideal way to spend a day off?",
-    answers: [
-      {
-        text: "At the beach, enjoying the sea and sunshine.",
-        score: ["summer"]
-      },
-      {
-        text: "Curling up under a cosy blanket with a hot drink and your fave film.",
-        score: ["winter"]
-      },
-      {
-        text: "Dressing up, going somewhere fancy and making an ordinary day feel special.",
-        score: ["classics"]
+      // Display answers
+
+      const answersContainer = document.getElementById("answers");
+      answersContainer.innerHTML = "";
+
+      question.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+
+        button.className = "answer";
+        button.type = "button";
+        button.textContent = answer.text;
+
+        button.addEventListener("click", () => selectAnswer(index));
+
+        answersContainer.appendChild(button);
+      });
+    }
+
+
+    // SELECT ANSWER
+
+    function selectAnswer(index) {
+      selectedAnswer = index;
+
+      const answerButtons = document.querySelectorAll(".answer");
+
+      answerButtons.forEach((button, i) => {
+        button.classList.toggle("selected", i === index);
+      });
+
+      document.getElementById("nextButton").disabled = false;
+    }
+
+
+    // NEXT QUESTION / CALCULATE SCORE
+
+    function nextQuestion() {
+      if (selectedAnswer === null) return;
+
+      const answer = questions[currentQuestion].answers[selectedAnswer];
+
+      // Main collection receives 2 points
+      scores[answer.collection] += 2;
+
+      // Secondary collection receives 1 point
+      const secondary = secondaryMatches[answer.collection];
+      scores[secondary] += 1;
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
       }
-    ]
-  },
+    }
 
-  {
-    question: "Which of these animals do you like more?",
-    answers: [
-      {
-        text: "Cats",
-        score: ["mystical"]
-      },
-      {
-        text: "Horses",
-        score: ["wild"]
-      },
-      {
-        text: "Crows",
-        score: ["spooky"]
-      }
-    ]
-  }
 
-];
+    // DISPLAY RESULT
 
+    function showResult() {
+      document.getElementById("quiz").classList.add("hidden");
+      document.getElementById("result").classList.remove("hidden");
 
-// ========================================
-// COLLECTION RESULTS
-// ========================================
+      // Find highest score.
+      // In the event of a tie, collection order below decides the result.
 
-const collections = {
+      const collectionOrder = [
+        "winter",
+        "summer",
+        "classics",
+        "wild",
+        "spooky",
+        "mystical"
+      ];
 
-  winter: {
-    name: "A Little Winter Magic",
-    symbol: "❄️",
-    description: "You're a cosy soul who loves life's little comforts. You appreciate warm moments, seasonal magic and artwork that makes a space feel like home.",
-    url: "https://wowanothershop.com/collections/a-little-winter-magic"
-  },
+      let winningCollection = collectionOrder[0];
 
-  summer: {
-    name: "The Summer Club",
-    symbol: "☀️",
-    description: "You're sunshine in human form! Playful, colourful and full of life, you like to have fun and prefer artwork that feels positive and warm.",
-    url: "https://wowanothershop.com/collections/the-summer-club"
-  },
+      collectionOrder.forEach(collection => {
+        if (scores[collection] > scores[winningCollection]) {
+          winningCollection = collection;
+        }
+      });
 
-  classics: {
-    name: "The Classics",
-    symbol: "💋",
-    description: "You have an eye for timeless style. A little glamour, a touch of elegance and a love for the things that never go out of fashion.",
-    url: "https://wowanothershop.com/collections/the-classics"
-  },
+      const result = collections[winningCollection];
 
-  wild: {
-    name: "Wild at Heart",
-    symbol: "🤠",
-    description: "You have an adventurous spirit and like to do things your own way. You have a rebellious streak and a soft spot for a little wild-west charm.",
-    url: "https://wowanothershop.com/collections/wild-at-heart"
-  },
+      document.getElementById("resultIcon").textContent = result.icon;
+      document.getElementById("resultName").textContent = result.name;
+      document.getElementById("resultDescription").textContent = result.description;
+      document.getElementById("shopLink").href = result.link;
+    }
 
-  spooky: {
-    name: "Spooky Art Lover",
-    symbol: "🖤",
-    description: "You find comfort in the darker things and you're not afraid to show it. Halloween is like Christmas for you. You like a little mystery, a little mischief and love all things spooky.",
-    url: "https://wowanothershop.com/collections/spooky-art-lover"
-  },
 
-  mystical: {
-    name: "Mystical Muses",
-    symbol: "🌙",
-    description: "You're imaginative, curious and drawn to a little magic. You've blamed the moon for your problems at least once and love a touch of otherworldly charm.",
-    url: "https://wowanothershop.com/collections/mystical-muses"
-  }
+    // RESTART QUIZ
 
-};
+    function restartQuiz() {
+      currentQuestion = 0;
+      selectedAnswer = null;
+      resetScores();
 
+      document.getElementById("result").classList.add("hidden");
+      document.getElementById("welcome").classList.remove("hidden");
+    }
 
-// ========================================
-// QUIZ FUNCTIONALITY
-// ========================================
-
-let currentQuestion = 0;
-let selectedAnswer = null;
-let scores = {};
-
-
-function resetScores() {
-  scores = {};
-
-  Object.keys(collections).forEach(key => {
-    scores[key] = 0;
-  });
-}
-
-
-function startQuiz() {
-
-  resetScores();
-
-  currentQuestion = 0;
-
-  document.getElementById("welcome").classList.add("hidden");
-  document.getElementById("result").classList.add("hidden");
-  document.getElementById("quiz-section").classList.remove("hidden");
-
-  showQuestion();
-}
-
-
-function showQuestion() {
-
-  selectedAnswer = null;
-
-  const q = questions[currentQuestion];
-
-  document.getElementById("question-number").textContent =
-    `QUESTION ${currentQuestion + 1} OF ${questions.length}`;
-
-  document.getElementById("question").textContent = q.question;
-
-  document.getElementById("next").disabled = true;
-
-  document.getElementById("next").textContent =
-    currentQuestion === questions.length - 1
-      ? "SEE MY MATCH ♥"
-      : "NEXT QUESTION →";
-
-
-  // Progress hearts
-
-  document.getElementById("progress").innerHTML =
-    questions.map((_, i) =>
-      `<span class="heart ${i <= currentQuestion ? "active" : ""}">♥</span>`
-    ).join("");
-
-
-  // Answer buttons
-
-  const answers = document.getElementById("answers");
-
-  answers.innerHTML = "";
-
-  q.answers.forEach((answer, index) => {
-
-    const button = document.createElement("button");
-
-    button.className = "answer";
-
-    button.textContent = answer.text;
-
-    button.onclick = () => selectAnswer(index);
-
-    answers.appendChild(button);
-
-  });
-
-}
-
-
-function selectAnswer(index) {
-
-  selectedAnswer = index;
-
-  document.querySelectorAll(".answer").forEach((button, i) => {
-
-    button.classList.toggle("selected", i === index);
-
-  });
-
-  document.getElementById("next").disabled = false;
-
-}
-
-
-function nextQuestion() {
-
-  if (selectedAnswer === null) return;
-
-  const answer = questions[currentQuestion].answers[selectedAnswer];
-
-
-  // Primary collection receives two points.
-
-  scores[answer.score[0]] += 2;
-
-
-  // Secondary collection receives one point.
-
-  const secondary = {
-    winter: "mystical",
-    summer: "wild",
-    classics: "mystical",
-    wild: "summer",
-    spooky: "mystical",
-    mystical: "spooky"
-  };
-
-  scores[secondary[answer.score[0]]] += 1;
-
-
-  currentQuestion++;
-
-
-  if (currentQuestion < questions.length) {
-
-    showQuestion();
-
-  } else {
-
-    showResult();
-
-  }
-
-}
-
-
-// ========================================
-// DISPLAY FINAL RESULT
-// ========================================
-
-function showResult() {
-
-  document.getElementById("quiz-section").classList.add("hidden");
-
-  document.getElementById("result").classList.remove("hidden");
-
-
-  const maxScore = Math.max(...Object.values(scores));
-
-  const winners = Object.keys(scores).filter(
-    key => scores[key] === maxScore
-  );
-
-
-  // Consistent collection order breaks ties.
-
-  const winner = winners[0];
-
-  const collection = collections[winner];
-
-
-  document.getElementById("result-symbol").textContent =
-    collection.symbol;
-
-  document.getElementById("result-title").textContent =
-    collection.name;
-
-  document.getElementById("result-description").textContent =
-    collection.description;
-
-  document.getElementById("shop-link").href =
-    collection.url;
-
-}
-
-
-// ========================================
-// RESTART QUIZ
-// ========================================
-
-function restartQuiz() {
-
-  document.getElementById("result").classList.add("hidden");
-
-  document.getElementById("welcome").classList.remove("hidden");
-
-}
-
-</script>
+  </script>
 
 </body>
 </html>
